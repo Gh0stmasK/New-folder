@@ -7,9 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .selected-option {
-            background-color: #facc15;
+            background-color: #5174a2;
             /* Tailwind's yellow-400 */
-            color: black;
+            color: white;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        #hv:hover {
+            background-color: #5174a2;
+            color: white;
             border-radius: 0.25rem;
             padding: 0.25rem 0.5rem;
         }
@@ -44,7 +51,7 @@
 
     <div class="flex items-center justify-center min-h-screen">
         <div class="max-w-xl w-full">
-            <form id="eduForm" class="p-6 rounded-lg shadow-lg space-y-5 text-white">
+            <form id="GameForm" class="p-6 rounded-lg shadow-lg space-y-5 text-white">
                 <h2 class="text-2xl font-bold text-yellow-400 mb-4">Register For Updates</h2>
 
                 <div>
@@ -58,15 +65,35 @@
                 </div>
 
                 <div>
-                    <label class="block mb-1 text-white">Course</label>
-                    <input type="text" name="course" class="w-full p-2 rounded text-black" required>
+                    <label class="block mb-1 text-white">Games</label>
+                    <input type="text" name="games" class="w-full p-2 rounded text-black" required>
                 </div>
                 <button type="submit" id="submitBtn"
                     class="bg-yellow-400 text-black px-4 py-2 rounded font-semibold hover:bg-yellow-300">Submit</button>
                 <div id="submittedData" class="mt-6 text-white"></div>
             </form>
-            <img id="headlineImg" src="/1.svg" alt="Call of Duty Black Ops 7"
-                class="display-block max-w-100 h-auto mx-auto mt-10">
+            <div class="mt-10 p-6 rounded-lg shadow-lg">
+                <label class="block mb-1 text-white text-2xl">Preferred Time:</label>
+                <div id="preferredTimeOptions" class="space-y-2">
+                    <label class="inline-flex items-center cursor-pointer" id="hv">
+                        <input type="radio" name="preferredTime" value="Morning"
+                            class="form-radio text-yellow-400 hidden">
+                        <span class="ml-2 option-label text-white">Morning</span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer" id="hv">
+                        <input type="radio" name="preferredTime" value="Afternoon"
+                            class="form-radio text-yellow-400 hidden">
+                        <span class="ml-2 option-label text-white">Afternoon</span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer" id="hv">
+                        <input type="radio" name="preferredTime" value="Evening"
+                            class="form-radio text-yellow-400 hidden">
+                        <span class="ml-2 option-label text-white">Evening</span>
+                    </label>
+                </div>
+                <img id="headlineImg" src="/1.svg" alt="Call of Duty Black Ops 7"
+                    class="display-block max-w-100 h-auto mx-auto mt-10">
+            </div>
         </div>
     </div>
 </body>
@@ -78,11 +105,11 @@
         mobileMenu.classList.toggle('hidden');
     });
 
-    const eduForm = document.getElementById('eduForm');
-    eduForm.addEventListener('submit', (e) => {
+    const GameForm = document.getElementById('GameForm');
+    GameForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const formData = new FormData(eduForm);
+        const formData = new FormData(GameForm);
         const data = Object.fromEntries(formData.entries());
 
         console.log(data);
@@ -92,8 +119,9 @@
             <h2 class="text-xl font-bold text-yellow-400 mb-4">Registration Details</h2>
             <p><strong>Full Name:</strong> ${data.fullName}</p>
             <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>Course:</strong> ${data.course}</p>
+            <p><strong>Games:</strong> ${data.games}</p>
         `;
+        GameForm.reset();
     });
     const optionLabels = document.querySelectorAll('#preferredTimeOptions label');
 
@@ -108,8 +136,6 @@
             }
         });
     });
-    eduForm.reset();
-    const submitBtn = document.getElementById('submitBtn'); 
 </script>
 
 </html>
