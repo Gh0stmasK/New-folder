@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .selected-option {
+            background-color: #facc15;
+            /* Tailwind's yellow-400 */
+            color: black;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+    </style>
     <title>Document</title>
 </head>
 
@@ -56,10 +65,31 @@
                     class="bg-yellow-400 text-black px-4 py-2 rounded font-semibold hover:bg-yellow-300">Submit</button>
                 <div id="submittedData" class="mt-6 text-white"></div>
             </form>
-            <img id="headlineImg" src="/1.svg" alt="Call of Duty Black Ops 7"
-                class="display-block max-w-100 h-auto mx-auto mt-10">
+            <div class="display-flex">
+                <label class="block mb-1 text-white">Preferred Time</label>
+                <div id="preferredTimeOptions" class="space-y-2">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="preferredTime" value="Morning"
+                            class="form-radio text-yellow-400 hidden">
+                        <span class="ml-2 option-label">Morning</span>
+                    </label>
+                    <br>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="preferredTime" value="Afternoon"
+                            class="form-radio text-yellow-400 hidden">
+                        <span class="ml-2 option-label">Afternoon</span>
+                    </label>
+                    <br>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="preferredTime" value="Evening"
+                            class="form-radio text-yellow-400 hidden">
+                        <span class="ml-2 option-label">Evening</span>
+                    </label>
+                </div>
+                <img id="headlineImg" src="1.svg" alt="Call of Duty Black Ops 7"
+                    class="display-block max-w-100 h-auto mx-auto mt-10">
+            </div>
         </div>
-    </div>
 </body>
 <script>
     const menuBtn = document.getElementById('menuBtn');
@@ -85,6 +115,19 @@
             <p><strong>Email:</strong> ${data.email}</p>
             <p><strong>Course:</strong> ${data.course}</p>
         `;
+    });
+    const optionLabels = document.querySelectorAll('#preferredTimeOptions label');
+
+    optionLabels.forEach(label => {
+        const input = label.querySelector('input');
+        const span = label.querySelector('span');
+
+        input.addEventListener('change', () => {
+            optionLabels.forEach(l => l.querySelector('span').classList.remove('selected-option'));
+            if (input.checked) {
+                span.classList.add('selected-option');
+            }
+        });
     });
     eduForm.reset();
     const submitBtn = document.getElementById('submitBtn'); 
