@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body class="bg-[url('bg.webp')]">
+    <nav class="bg-black px-6 py-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-yellow-400 tracking-widest">Call of Duty</h1>
+
+            <button id="menuBtn" class="md:hidden text-white text-2xl focus:outline-none">
+                ☰
+            </button>
+
+            <ul id="navMenu" class="hidden md:flex space-x-6 text-white font-medium">
+                <li><a href="#" class="hover:text-yellow-400 transition">Home</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">Games</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">News</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">Contact</a></li>
+            </ul>
+        </div>
+
+        <ul id="mobileMenu" class="md:hidden hidden flex-col space-y-3 text-white mt-4">
+            <li><a href="#" class="block px-4 py-2 hover:bg-yellow-400 hover:text-black">Home</a></li>
+            <li><a href="#" class="block px-4 py-2 hover:bg-yellow-400 hover:text-black">Games</a></li>
+            <li><a href="#" class="block px-4 py-2 hover:bg-yellow-400 hover:text-black">News</a></li>
+            <li><a href="#" class="block px-4 py-2 hover:bg-yellow-400 hover:text-black">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="max-w-xl w-full">
+            <form id="eduForm" class="p-6 rounded-lg shadow-lg space-y-5 text-white">
+                <h2 class="text-2xl font-bold text-yellow-400 mb-4">Register For Updates</h2>
+
+                <div>
+                    <label class="block mb-1 text-white">Full Name</label>
+                    <input type="text" name="fullName" class="w-full p-2 rounded text-black" required>
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-white">Email</label>
+                    <input type="email" name="email" class="w-full p-2 rounded text-black" required>
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-white">Course</label>
+                    <input type="text" name="course" class="w-full p-2 rounded text-black" required>
+                </div>
+                <button type="submit" id="submitBtn"
+                    class="bg-yellow-400 text-black px-4 py-2 rounded font-semibold hover:bg-yellow-300">Submit</button>
+                <div id="submittedData" class="mt-6 text-white"></div>
+            </form>
+            <img id="headlineImg" src="/1.svg" alt="Call of Duty Black Ops 7"
+                class="display-block max-w-100 h-auto mx-auto mt-10">
+        </div>
+    </div>
+</body>
+<script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const eduForm = document.getElementById('eduForm');
+    eduForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(eduForm);
+        const data = Object.fromEntries(formData.entries());
+
+        console.log(data);
+        const submittedData = document.getElementById('submittedData');
+        submittedData.innerHTML = `
+            <h2 class="text-xl font-bold text-green-400 mb-4">Registration Successful</h2>
+            <h2 class="text-xl font-bold text-yellow-400 mb-4">Registration Details</h2>
+            <p><strong>Full Name:</strong> ${data.fullName}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Course:</strong> ${data.course}</p>
+        `;
+    });
+    eduForm.reset();
+    const submitBtn = document.getElementById('submitBtn'); 
+</script>
+
+</html>
